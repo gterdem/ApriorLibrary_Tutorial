@@ -11,6 +11,15 @@ def getIndividualSupport(dataDictionary, totalTransactions):
 
 
 def getTransactions(data, printData=False):
+    """Creates MarketTransaction object list from pandas.read_csv DataFramee object
+
+    Args:
+        data (DataFrame): pandas.read_csv result
+        printData (bool, optional): Determines if the items will be printed out. Defaults to False.
+
+    Returns:
+        [list]: [list of MarketTransaction]
+    """
     transactions = []
     for t in data.values:
         transaction = MarketTransaction(t)
@@ -21,6 +30,14 @@ def getTransactions(data, printData=False):
 
 
 def getCleanData(data):
+    """Returns cleaned data from pandas dataframe
+
+    Args:
+        data ([DataFrame]): [pandas DataFrame object]
+
+    Returns:
+        [list]: [list object]
+    """
     return [
         item
         for sublist in data.values
