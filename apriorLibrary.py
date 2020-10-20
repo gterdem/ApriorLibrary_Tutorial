@@ -34,6 +34,7 @@ class MarketTransaction:
     def calculateCombinations(self):
         combList = []
         for i in range(2,len(self.Items)+1):
+            #maybe check out powerset https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
             comb = itertools.combinations(self.Items, i)
             combList.append(list(comb))
         return combList
