@@ -27,7 +27,7 @@ import pandas as pd
 import apriorLibrary as ap
 
 # Read from file
-data = pd.read_csv('marketlist.csv', header=None)
+data = pd.read_csv("marketlist.csv", header=None)
 transactions = ap.getTransactions(data)
 # print(f'Total transactions: {len(transactions)}')
 
@@ -39,4 +39,3 @@ for t in transactions:
     print(t.Items)
     print(f"================= {t.tId} Combinations ================= ")
     print(t.Combinations)
-
