@@ -2,12 +2,19 @@ from typing import Counter
 import itertools
 
 
-def getIndividualSupport(dataDictionary, totalTransactions):
+def getIndividualSupport(dataDictionary, totalTransactions, threshold=2):
     dataDict = Counter(sorted(dataDictionary))
+    cleanedDict = [item for item in dataDict.items() if item[1] >= threshold]
     supportList = []
-    for key, value in dataDict.items():
-        supportList.append((key, value / totalTransactions))
+    for item in cleanedDict:
+        if item[1] >= threshold:
+            supportList.append((item[0], item[1] / totalTransactions))
     return supportList
+    # myList = [value for value in dataDict.values() if value >= threshold]
+    # for key, value in cleanedDict.items():
+    #     if value >= threshold:
+    #         supportList.append((key, value / totalTransactions))
+    # return supportList
 
 
 def getTransactions(data, printData=False):

@@ -1,14 +1,18 @@
 import pandas as pd
 import apriorLibrary as ap
+from typing import Counter
 
 # Read from file
 data = pd.read_csv("marketlist.csv", header=None)
-transactions = ap.getTransactions(data)
+transactionsP1 = ap.getTransactions(data)
 
 cleanedData = ap.getCleanData(data)
-individualSupports = ap.getIndividualSupport(cleanedData, len(transactions))
+dataDict = Counter(sorted(cleanedData))
 
-for t in transactions:
+individualSupports = ap.getIndividualSupport(cleanedData, len(data.values), threshold=4)
+
+
+for t in transactionsP1:
     print(f"================= {t.tId} Items ================= ")
     print(t.Items)
     print(f"================= {t.tId} Combinations ================= ")
