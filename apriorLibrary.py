@@ -17,7 +17,7 @@ def getIndividualSupport(dataDictionary, totalTransactions, threshold=2):
     # return supportList
 
 
-def getTransactions(data, printData=False):
+def getTransactions(data, printData=False,filteredList=[]):
     """Creates MarketTransaction object list from pandas.read_csv DataFramee object
 
     Args:
@@ -29,7 +29,7 @@ def getTransactions(data, printData=False):
     """
     transactions = []
     for t in data.values:
-        transaction = MarketTransaction(t)
+        transaction = MarketTransaction(t,filteredList=filteredList)
         transactions.append(transaction)
         if printData:
             print(transaction.tId, transaction.Items)
@@ -54,19 +54,23 @@ def getCleanData(data):
 
 
 class MarketTransaction:
-    def __init__(self, transaction):
+    def __init__(self, transaction,filteredList=[]):
         self.tId = transaction[0]
-        self.Items = []
-        for i in range(1, len(transaction)):
-            if str(transaction[i]) != "nan":
-                self.Items.append(transaction[i])
+        self.items = []
+        self.filteredItems=[]
+        for x in transaction[1:len(transaction)+1]:
+            a=[(k,v) for (k,v) in filteredList if k==x]
+            if str(x) != "nan":
+                self.items.append(x)
+                if len(a)>0:
+                    self.filteredItems.append(x)
 
         self.Combinations = self.calculateCombinations()
 
     def calculateCombinations(self):
         combList = []
-        for i in range(2, len(self.Items) + 1):
+        for i in range(2, len(self.items) + 1):
             # maybe check out powerset https://stackoverflow.com/questions/464864/how-to-get-all-possible-combinations-of-a-list-s-elements
-            comb = itertools.combinations(self.Items, i)
+            comb = itertools.combinations(self.items, i)
             combList.append(list(comb))
         return combList

@@ -18,3 +18,5 @@ Rewrite your main branch so that any commits of yours that aren't already in ups
 
 git rebase upstream/main
 source:https://stackoverflow.com/questions/7244321/how-do-i-update-a-github-forked-repository
+
+git merge upstream/main
