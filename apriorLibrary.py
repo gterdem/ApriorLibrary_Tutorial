@@ -17,7 +17,7 @@ def getIndividualSupport(dataDictionary, totalTransactions, threshold=2):
     # return supportList
 
 
-def getTransactions(data, printData=False,filteredList=[]):
+def getTransactions(data, printData=False, filteredList=[]):
     """Creates MarketTransaction object list from pandas.read_csv DataFramee object
 
     Args:
@@ -29,7 +29,7 @@ def getTransactions(data, printData=False,filteredList=[]):
     """
     transactions = []
     for t in data.values:
-        transaction = MarketTransaction(t,filteredList=filteredList)
+        transaction = MarketTransaction(t, filteredList=filteredList)
         transactions.append(transaction)
         if printData:
             print(transaction.tId, transaction.Items)
@@ -54,15 +54,15 @@ def getCleanData(data):
 
 
 class MarketTransaction:
-    def __init__(self, transaction,filteredList=[]):
+    def __init__(self, transaction, filteredList=[]):
         self.tId = transaction[0]
         self.items = []
-        self.filteredItems=[]
-        for x in transaction[1:len(transaction)+1]:
-            a=[(k,v) for (k,v) in filteredList if k==x]
+        self.filteredItems = []
+        for x in transaction[1 : len(transaction) + 1]:
+            a = [(k, v) for (k, v) in filteredList if k == x]
             if str(x) != "nan":
                 self.items.append(x)
-                if len(a)>0:
+                if len(a) > 0:
                     self.filteredItems.append(x)
 
         self.Combinations = self.calculateCombinations()
